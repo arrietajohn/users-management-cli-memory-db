@@ -11,7 +11,13 @@ import com.jcaa.udec.collections.domain.port.out.ObtenerUsuariosPort;
 import com.jcaa.udec.collections.entrypoint.cli.GuiCli;
 import com.jcaa.udec.collections.entrypoint.controller.UsuarioControlador;
 import com.jcaa.udec.collections.entrypoint.controller.UsuarioControladorImpl;
+import com.jcaa.udec.bus.infrastructure.ui.BusCli;
 
+public class Main {
+    public static void main(String[] args) {
+        BusCli.start();
+    }
+}
 public class Main {
     public static void main(String[] args) {
         GuardarUsuarioPort guardarUsuarioPort = new GuardarUsuarioAdapter();
