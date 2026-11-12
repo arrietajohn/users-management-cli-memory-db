@@ -3,8 +3,12 @@ package com.jcaa.udec.collections.entrypoint.cli;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.jcaa.udec.collections.domain.core.exception.UsuarioNoExisteException;
+import com.jcaa.udec.collections.entrypoint.controller.RadioControlador;
 import com.jcaa.udec.collections.entrypoint.controller.UsuarioControlador;
+import com.jcaa.udec.collections.entrypoint.controller.dto.request.ActualizarRadioPeticion;
+import com.jcaa.udec.collections.entrypoint.controller.dto.request.RegistrarRadioPeticion;
 import com.jcaa.udec.collections.entrypoint.controller.dto.request.RegistrarUsuarioPeticion;
+import com.jcaa.udec.collections.entrypoint.controller.dto.response.ObtenerRadioResponse;
 import com.jcaa.udec.collections.entrypoint.controller.dto.response.ObtenerUsuarioResponse;
 import com.jcaa.udec.collections.entrypoint.controller.dto.response.UsuarioResponse;
 import java.io.ByteArrayOutputStream;
@@ -25,13 +29,13 @@ class GuiCliTest {
     void deberiaSolicitarOpcionHastaRecibirValorValido() {
         // Arrange
         UsuarioControladorStub controlador = new UsuarioControladorStub();
-        GuiCli guiCli = crearGuiCli(controlador, "texto", "5", "\uFEFF2");
+        GuiCli guiCli = crearGuiCli(controlador, "texto", "99", "\uFEFF2");
 
         // Act
         String salida = capturarSalida(() -> assertThat(guiCli.obtenerOpcionMenu()).isEqualTo(2));
 
         // Assert
-        assertThat(salida).contains("Opcion [texto] invalida", "Opcion [5] invalida");
+        assertThat(salida).contains("Opcion [texto] invalida", "Opcion [99] invalida");
     }
 
     @Test
@@ -49,7 +53,7 @@ class GuiCliTest {
                 NOMBRE,
                 "correo-invalido",
                 EMAIL,
-                "4");
+                "9");
 
         // Act
         String salida = capturarSalida(guiCli::ejecutarAccion);
@@ -76,7 +80,7 @@ class GuiCliTest {
     void deberiaMostrarUsuarioBuscado() {
         // Arrange
         UsuarioControladorStub controlador = new UsuarioControladorStub();
-        GuiCli guiCli = crearGuiCli(controlador, "2", ID, "4");
+        GuiCli guiCli = crearGuiCli(controlador, "2", ID, "9");
 
         // Act
         String salida = capturarSalida(guiCli::ejecutarAccion);
@@ -89,7 +93,7 @@ class GuiCliTest {
     void deberiaInformarCuandoNoHayUsuariosRegistrados() {
         // Arrange
         UsuarioControladorStub controlador = new UsuarioControladorStub();
-        GuiCli guiCli = crearGuiCli(controlador, "3", "4");
+        GuiCli guiCli = crearGuiCli(controlador, "3", "9");
 
         // Act
         String salida = capturarSalida(guiCli::ejecutarAccion);
@@ -103,7 +107,7 @@ class GuiCliTest {
         // Arrange
         UsuarioControladorStub controlador = new UsuarioControladorStub();
         controlador.registrar(new RegistrarUsuarioPeticion(ID, PASSWORD, NOMBRE, EMAIL));
-        GuiCli guiCli = crearGuiCli(controlador, "3", "4");
+        GuiCli guiCli = crearGuiCli(controlador, "3", "9");
 
         // Act
         String salida = capturarSalida(guiCli::ejecutarAccion);
@@ -117,7 +121,7 @@ class GuiCliTest {
         // Arrange
         UsuarioControladorStub controlador = new UsuarioControladorStub();
         controlador.reportarUsuarioInexistente();
-        GuiCli guiCli = crearGuiCli(controlador, "2", ID, "4");
+        GuiCli guiCli = crearGuiCli(controlador, "2", ID, "9");
 
         // Act
         String salida = capturarSalida(guiCli::ejecutarAccion);
@@ -128,7 +132,7 @@ class GuiCliTest {
 
     private static GuiCli crearGuiCli(UsuarioControlador controlador, String... entradas) {
         String contenido = String.join(System.lineSeparator(), entradas) + System.lineSeparator();
-        return new GuiCli(controlador, new Scanner(contenido));
+        return new GuiCli(controlador, new RadioControladorStub(), new Scanner(contenido));
     }
 
     private static String capturarSalida(Runnable accion) {
@@ -177,6 +181,30 @@ class GuiCliTest {
 
         private void reportarUsuarioInexistente() {
             usuarioInexistente = true;
+        }
+    }
+
+    private static final class RadioControladorStub implements RadioControlador {
+        @Override
+        public void registrar(RegistrarRadioPeticion peticion) {
+        }
+
+        @Override
+        public ObtenerRadioResponse obtenerPorId(String id) {
+            return new ObtenerRadioResponse(List.of());
+        }
+
+        @Override
+        public ObtenerRadioResponse obtenerTodos() {
+            return new ObtenerRadioResponse(List.of());
+        }
+
+        @Override
+        public void actualizar(ActualizarRadioPeticion peticion) {
+        }
+
+        @Override
+        public void eliminar(String id) {
         }
     }
 }

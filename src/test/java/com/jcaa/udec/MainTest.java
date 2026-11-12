@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
 
 class MainTest {
-    private static final String OPCION_SALIR = "4";
+    private static final String OPCION_SALIR = "9";
 
     @Test
     void deberiaInicializarAplicacionYFinalizarAlSeleccionarSalir() {
