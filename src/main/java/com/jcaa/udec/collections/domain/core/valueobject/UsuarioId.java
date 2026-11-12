@@ -12,7 +12,7 @@ public record UsuarioId(String valor) {
 
     private static boolean esNumeroEntero(String valor) {
         try {
-            Integer.parseInt(valor);
+            Long.parseLong(valor);
             return true;
         } catch (NumberFormatException exception) {
             return false;
