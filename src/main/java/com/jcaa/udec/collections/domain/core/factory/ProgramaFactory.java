@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 public final class ProgramaFactory {
-    private static final String MENSAJE_PRODUCTORA = "El programa requiere una compania productora.";
+    private static final String MENSAJE_PRODUCTORA = "El programa requiere una compañía productora.";
     private static final String MENSAJE_PERSONAL =
             "El personal del programa debe trabajar en la productora del consorcio con el mismo rol.";
 
