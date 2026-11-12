@@ -24,7 +24,7 @@ class UsuarioIdTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    @ValueSource(strings = {" ", "abc", "999999999999"})
+    @ValueSource(strings = {" ", "abc", "99999999999999999999"})
     void deberiaRechazarIdInvalido(String id) {
         // Arrange
         // Act
