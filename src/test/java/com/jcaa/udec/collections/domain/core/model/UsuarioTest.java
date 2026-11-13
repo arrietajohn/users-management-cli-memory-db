@@ -15,7 +15,7 @@ class UsuarioTest {
   private static final String PASSWORD_VALIDO = "ClaveSegura1!";
   private static final String NOMBRE_VALIDO = "Ana Perez";
   private static final String EMAIL_VALIDO = "ana_perez@example.com";
-  private static final String MENSAJE_DATOS_INVALIDOS = "Los datos del usuario son invalidos.";
+  private static final String MENSAJE_DATOS_INVALIDOS = "Los datos del usuario son inválidos.";
 
   @Test
   void deberiaCrearUsuarioConDatosValidos() {
